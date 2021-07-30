@@ -22,6 +22,9 @@ describe('Just', () => {
   })
   test('lte', () => {
     expect(raw.lte(Maybe.of(inner + 2))).toBeTruthy()
+    expect(raw.lte(Maybe.of(inner - 2))).toBeFalsy()
+    expect(raw.lte(Maybe.of(-2))).toBeFalsy()
+    expect(raw.lte(Maybe.of(200000))).toBeFalsy()
   })
   test('concat', () => {
     raw = Maybe.of([inner])

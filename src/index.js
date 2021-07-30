@@ -4,9 +4,7 @@ import {
   identity,
   inherit,
   lte,
-  map,
   noop,
-  of,
   aliasFor
 } from './utils'
 

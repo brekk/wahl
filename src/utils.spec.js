@@ -1,5 +1,4 @@
 import {
-  inherit,
   delegatedMethod,
   lte,
   equals,
@@ -15,7 +14,7 @@ test('delegatedMethod', () => {
     this.value = y
     return this
   }
-  X.prototype.crap = function crap(x) {
+  X.prototype.crap = function crap(_) {
     this.cool = false
     return this
   }
@@ -27,9 +26,16 @@ test('delegatedMethod', () => {
 })
 test('lte', () => {
   expect(lte(4, 5)).toBeTruthy()
+  expect(lte({ lte: () => true }, { lte: () => true })).toBeTruthy()
+  expect(lte({ lte: () => false }, { lte: () => false })).toBeTruthy()
+  expect(lte({ value: -1000 }, { value: 100 })).toBeTruthy()
 })
 test('equals', () => {
   expect(equals(4, 4)).toBeTruthy()
+  expect(
+    equals({ equals: () => true }, { equals: () => true })
+  ).toBeTruthy()
+  expect(equals({ value: 100 }, { value: 100 })).toBeTruthy()
 })
 test('map', () => {
   expect(map(x => x * 2, [1, 2, 3])).toEqual([2, 4, 6])
