@@ -48,8 +48,9 @@ describe('Just', () => {
   test('map', () => {
     expect(raw.map(x => x * 2)).toEqual(Maybe.of(inner * 2))
   })
-  test('ap', () => {
-    expect(raw.ap(Maybe.of(x => x * 3))).toEqual(Maybe.of(inner * 3))
+  test('ap + ap2', () => {
+    expect(Maybe.of(x => x * 3).ap(raw)).toEqual(Maybe.of(inner * 3))
+    expect(raw.ap2(Maybe.of(x => x * 3))).toEqual(Maybe.of(inner * 3))
     expect(raw.ap(Maybe.empty())).toEqual(Maybe.empty())
   })
   test('chain', () => {
@@ -99,8 +100,9 @@ describe('Nothing', () => {
   test('map', () => {
     expect(raw.map(x => x * 2)).toEqual(raw)
   })
-  test('ap', () => {
+  test('ap + ap2', () => {
     expect(raw.ap(Maybe.of(x => x * 3))).toEqual(raw)
+    expect(Maybe.of(x => x * 3).ap2(raw)).toEqual(raw)
   })
   test('chain', () => {
     expect(raw.chain(x => x * 2)).toEqual(raw)

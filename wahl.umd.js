@@ -103,7 +103,10 @@
   };
 
   Nothing.prototype.equals = function nEquals(x) {
-    return x && x.isNothing
+    if (x && x.isNothing) {
+      return true
+    }
+    return false
   };
 
   Just.prototype.equals = function jEquals(other) {
@@ -135,10 +138,12 @@
   };
 
   Nothing.prototype.ap = noop;
+  Nothing.prototype.ap2 = noop;
   Just.prototype.ap = function jAp(other) {
-    return other && other.isJust
-      ? Maybe.of(other.value(this.value))
-      : other
+    return other && other.isJust ? other.map(this.value) : other
+  };
+  Just.prototype.ap2 = function jAp(other) {
+    return other && other.isJust ? this.map(other.value) : other
   };
 
   Nothing.prototype.chain = noop;
