@@ -18,7 +18,7 @@
     "rollup": "^2.45.2"
   },
   "name": "wahl",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "simple Option / Maybe",
   "main": "wahl.js",
   "repository": "https://github.com/brekk/wahl",
