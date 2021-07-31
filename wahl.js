@@ -72,6 +72,10 @@ Just.prototype.isJust = true;
 Maybe.empty = () => new Nothing();
 Maybe.of = x => new Just(x);
 Maybe.zero = Maybe.empty;
+Maybe.safe = function safe(x) {
+  return x == null ? Maybe.empty() : Maybe.of(x)
+};
+
 Maybe.isJust = function isJust(x) {
   return x && x.isJust
 };
