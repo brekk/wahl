@@ -7,12 +7,19 @@ describe('Just', () => {
     inner = Math.round(Math.random() * 1e6)
     raw = Maybe.of(inner)
   })
-
+  test('tryCatch', () => {
+    const unsafeFn = (x, d) => x.cool[d]
+    const safe = Maybe.tryCatch(unsafeFn)
+    expect(() => safe(null, 'yes')).not.toThrow()
+    expect(Maybe.isNothing(safe(null, 'yes'))).toBeTruthy()
+  })
   test('isNothing', () => {
     expect(raw.isNothing).toBeFalsy()
+    expect(Maybe.isNothing(raw)).toBeFalsy()
   })
   test('isJust', () => {
     expect(raw.isJust).toBeTruthy()
+    expect(Maybe.isJust(raw)).toBeTruthy()
   })
   test('toString', () => {
     expect(raw.toString()).toEqual('Just(' + inner + ')')

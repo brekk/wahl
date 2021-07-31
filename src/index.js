@@ -30,7 +30,23 @@ Just.prototype.isJust = true
 
 Maybe.empty = () => new Nothing()
 Maybe.of = x => new Just(x)
-Maybe.zero = () => new Nothing()
+Maybe.zero = Maybe.empty
+Maybe.isJust = function isJust(x) {
+  return x && x.isJust
+}
+Maybe.isNothing = function isNothing(x) {
+  return x && x.isNothing
+}
+Maybe.tryCatch = function tryCatch(unsafeFn) {
+  return function safeFn() {
+    const args = Array.from(arguments)
+    try {
+      return Maybe.of(unsafeFn.apply(this, args))
+    } catch (e) {
+      return Maybe.empty()
+    }
+  }
+}
 
 Nothing.prototype.toString = () => 'Nothing'
 Just.prototype.toString = function jToString() {
