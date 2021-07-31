@@ -98,7 +98,10 @@ Just.prototype.toString = function jToString() {
   return `Just(${this.value})`
 };
 
-Nothing.prototype.equals = x => x.isNothing;
+Nothing.prototype.equals = function nEquals(x) {
+  return x && x.isNothing
+};
+
 Just.prototype.equals = function jEquals(other) {
   return other && other.isJust && equals(this.value, other.value)
 };
