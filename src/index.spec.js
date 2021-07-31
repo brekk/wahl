@@ -4,7 +4,7 @@ describe('Just', () => {
   let raw
   let inner
   beforeEach(() => {
-    inner = Math.round(Math.random() * 1e6)
+    inner = Math.round(Math.random() * 100)
     raw = Maybe.of(inner)
   })
   test('tryCatch', () => {
@@ -31,7 +31,7 @@ describe('Just', () => {
     expect(raw.lte(Maybe.of(inner + 2))).toBeTruthy()
     expect(raw.lte(Maybe.of(inner - 2))).toBeFalsy()
     expect(raw.lte(Maybe.of(-2))).toBeFalsy()
-    expect(raw.lte(Maybe.of(200000))).toBeFalsy()
+    expect(raw.lte(Maybe.of(200000))).toBeTruthy()
   })
   test('concat', () => {
     raw = Maybe.of([inner])
@@ -106,8 +106,8 @@ describe('Nothing', () => {
     expect(raw.chain(x => x * 2)).toEqual(raw)
   })
   test('alt', () => {
-    const inner = Math.random() * 1e5
-    expect(raw.alt(inner)).toEqual(inner)
+    const altValue = Math.random() * 1e5
+    expect(raw.alt(altValue)).toEqual(altValue)
   })
   test('reduce', () => {
     const adder = Math.round(Math.random() * 1e4)
@@ -124,5 +124,9 @@ describe('Maybe', () => {
   })
   test('Maybe', () => {
     expect(Maybe(null)).toEqual(Maybe())
+  })
+  test('Maybe.safe', () => {
+    expect(Maybe.safe(null)).toEqual(Maybe.zero())
+    expect(Maybe.safe(1000)).toEqual(Maybe.of(1000))
   })
 })
